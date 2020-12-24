@@ -1,0 +1,17 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+    
+    <bean id="serviceImagenes" class="com.sistema.rips.pyp.service.ServiceImagenes"/>
+    <bean id="serviceRipsAf" class="com.sistema.rips.pyp.service.ServiceRipsAf"/>
+    <bean id="serviceRipsAc" class="com.sistema.rips.pyp.service.ServiceRipsAc"/>
+    <bean id="servicePyp" class="com.sistema.rips.pyp.service.ServicePyp"/>
+    <bean id="serviceRuta" class="com.sistema.rips.pyp.service.ServiceRuta"/>
+    <bean id="serviceRipsUs" class="com.sistema.rips.pyp.service.ServiceRipsUs"/>
+    
+</beans>

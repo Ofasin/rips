@@ -1,0 +1,276 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/template/Layout.xhtml">
+    <ui:define name="content">
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{beanRipsAf.llenaLista}"/>
+        </f:metadata>
+        <h1 class="aw-page-title">Facturacion</h1>
+        
+        <h:form id="formTableRipsAf">
+            <p:growl id="messages" showDetail="true" showSummary="true"/>
+            <p:toolbar>
+                <p:toolbarGroup align="right">
+		  <!-- 
+                    <p:commandButton value="Nuevo" icon="ui-icon-document"
+                                     actionListener="#{beanRipsAf.onUpdateInsertRow(null)}" 
+                        update=":formAAShowTiposEventos:dialogTiposEventos"
+                        title="Registrar Nuevo"
+                        oncomplete="PF('widgetTiposEventos').show();">
+			<p:resetInput target="formAAShowTiposEventos:dialogTiposEventos" />
+		</p:commandButton> -->
+		</p:toolbarGroup>
+            </p:toolbar>
+            <p:dataTable id="tablaRipsAf" value="#{beanRipsAf.listaModel}" var="obj"
+                         paginator="true" rows="10" selectionMode="single"
+                         lazy="true" rowKey="#{obj.cont}" paginatorAlwaysVisible="false" 
+                         rowsPerPageTemplate="5,10,15,20,25,30,40,50"
+                         widgetVar="widgetTablaRipsAf" 
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         paginatorPosition="bottom"
+			 reflow="true"
+                         style="margin-top: 20px">
+                
+                <p:column headerText="Id" >
+                    <h:outputText value="#{obj.cont}" />
+		</p:column>
+                
+                <p:column headerText="NumFac" priority="3" filterBy="#{obj.numFact}">
+                      <p:commandLink onclick="PF('widgetTablaRipsAf').unselectAllRows();
+                        PF('widgetTablaRipsAf').selectRow(#{obj.posicion});"
+                        actionListener="#{beanRipsAf.onUpdateInsertRow(obj)}" 
+                        update=":formAAShowRipsAf:dialogRipsAf"
+                        
+                        title="Actualizar Registro"
+                        oncomplete="setIdActualizar(#{obj.idFact}); PF('widgetRipsAf').show();">
+                        <h:outputText value="#{obj.numFact}" />
+                    </p:commandLink>
+                </p:column>
+                <p:column headerText="EPS" priority="3" style="width:25%;text-align: left;" filterBy="#{obj.nomeps}">
+                    <h:outputText value="#{obj.nomeps}" />
+                </p:column>
+                <p:column headerText="PlanBen" filterBy="#{obj.planBenf}">
+                    <h:outputText value="#{obj.planBenf}" />
+                </p:column>
+                <p:column headerText="fecRad" >
+                    <h:outputText value="#{obj.fecRadc}" />
+                </p:column>
+                <p:column headerText="fecIni" >
+                    <h:outputText value="#{obj.fecIni}" />
+                </p:column>
+                <p:column headerText="fecFin" >
+                    <h:outputText value="#{obj.fecFin}" />
+                </p:column>
+                 
+               
+            
+            </p:dataTable>
+        </h:form>
+        
+        
+        
+        <h:form id="formAAShowRipsAf">
+            <p:dialog id="dialogRipsAf" header="#{beanRipsAf.tituloPantalla}" widgetVar="widgetRipsAf" width="1350" height="500"
+                              showEffect="explode" hideEffect="fade" closable="true" 
+                              resizable="false"  modal="true"  responsive="true">
+                        <h:panelGroup id="panelRipsAf" layout="block" styleClass="ui-fluid">
+                            
+                           
+                                
+                                <div class="ui-fluid">
+                                    
+                                   
+                                    
+                                    <h:inputHidden id="contadorRipsAfActualizar" value="#{beanRipsAf.ripsAf.idFact}"/>
+                                <h:inputHidden id="contadorRipsAfActualizar2" value="#{beanRipsAf.ripsAf.idFact}"/>
+                                
+                                <p:tabView  id="tabView">
+                                    <p:tab title="RIPS">
+                                        
+                                            
+                                 <p:tabView  id="tabViewRips">
+                                     <p:tab title="Adolecencia">
+                                         <p:panelGrid id="panGriBusRuta" columns="4" style="width:100%">
+                                             <p:outputLabel value="AdolUs"  />
+                                             <p:inputText id="txtAdolUs"
+                                                          value="#{beanRipsAf.adolctsUs}" />
+                                             <p:outputLabel value="Adolecentes en Ac"  />
+                                             <p:inputText id="txtAdolAc"
+                                                          value="#{beanRipsAf.adolctsAc}" />
+                                             <p:selectOneMenu id="txtProveedor" >
+                                                 <f:selectItems value="#{beanRipsAf.listaRuta}"
+                                                                var="dato"
+                                                                itemLabel="#{dato.codRuta} #{dato.descrpRuta}"
+                                                                itemValue="#{dato.idRuta}"/>
+                                                 <p:ajax event="change" listener="#{beanRipsAf.changeProveedor}"
+                                                         />
+                                             </p:selectOneMenu>
+                                             
+                                             
+                                         </p:panelGrid>
+                                         
+                                         
+                                  
+                                 
+                                 <p:dataTable id="tablaRipsAc" value="#{beanRipsAf.listaModelAc}" var="obj"
+                                              paginator="true" rows="10" selectionMode="single"
+                                              lazy="true" rowKey="#{obj.cont}" paginatorAlwaysVisible="false" 
+                                              rowsPerPageTemplate="5,10,15,20,25,30,40,50"
+                                              widgetVar="widgetTablaRipsAc" 
+                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                              paginatorPosition="bottom"
+                                              reflow="true"
+                                              style="margin-top: 5px">
+                                    
+                                     <p:column headerText="CodEps" >
+                                         <h:outputText value="#{obj.documento.codeps}" />
+                                     </p:column>
+                                     
+                                      <p:column headerText="TipDoc" style="width:30px">
+                                          <h:outputText value="#{obj.tipdoc}" />
+                                     </p:column>
+                                      <p:column headerText="Doc" style="width:100px">
+                                          <h:outputText value="#{obj.documento.documento}" />
+                                     </p:column>
+                                      <p:column headerText="PrimerApellido" style="width:100px">
+                                          <h:outputText value="#{obj.documento.apellido1}" />
+                                     </p:column>
+                                      <p:column headerText="SegundoApellido2" style="width:100px">
+                                          <h:outputText value="#{obj.documento.apellido2}" />
+                                     </p:column>
+                                      <p:column headerText="PrimerNombre" style="width:100px">
+                                          <h:outputText value="#{obj.documento.nombre1}" />
+                                     </p:column>
+                                     <p:column headerText="SegundoNombre" style="width:100px">
+                                          <h:outputText value="#{obj.documento.nombre1}" />
+                                     </p:column>
+                                     <p:column headerText="Sexo" style="width:25px">
+                                         <h:outputText value="#{obj.documento.sexo}" />
+                                     </p:column>
+                                     <p:column headerText="FecNac" style="width:100px">
+                                         <h:outputText value="#{obj.documento.fecnac}" />
+                                     </p:column>
+                                      <p:column headerText="fecCons" style="width:100px">
+                                         <h:outputText value="#{obj.feccons}" />
+                                     </p:column>
+                                     <p:column headerText="Edad" style="width:30px">
+                                         <h:outputText value="#{obj.documento.edad}" />
+                                     </p:column> 
+                                     <p:column headerText="CodigoCons" >
+                                         <h:outputText value="#{obj.codcons}" />
+                                     </p:column> 
+                                     <p:column headerText="Fin" style="width:30px">
+                                         <h:outputText value="#{obj.fincons}" />
+                                     </p:column> 
+                                     <p:column headerText="DiagPp" >
+                                         <h:outputText value="#{obj.diagppal}" />
+                                     </p:column> 
+                                     <p:column headerText="DiagRel1" >
+                                         <h:outputText value="#{obj.diag1}" />
+                                     </p:column> 
+                                      <p:column headerText="DiagRel2" >
+                                         <h:outputText value="#{obj.diag2}" />
+                                     </p:column> 
+                                     <p:column headerText="DiagRel3" >
+                                         <h:outputText value="#{obj.diag3}" />
+                                     </p:column> 
+                                 </p:dataTable>
+                                     </p:tab> 
+                                </p:tabView>
+                                     
+                                    </p:tab>
+                                    
+                                    <p:tab title="4505">
+                                        <p:outputLabel value="4505"  />
+                                    </p:tab>
+                                    
+                                     <p:tab title="Data">
+                                        <p:outputLabel value="Data4505"  />
+                                    </p:tab>
+                                </p:tabView>
+                                
+                                
+                                 
+                                 <p:commandButton id="btnCancelar" value="Cerrar"
+                                 update=":formTableRipsAf:tablaRipsAf"
+                                 immediate="true"
+                                 onclick="PF('widgetRipsAf').hide();"/>
+                                 
+                                </div>
+                                
+                                
+                           
+                            
+                        </h:panelGroup>
+                        
+                    </p:dialog>
+                </h:form>  
+        
+       <!--
+        <h:form id="formShowTiposEventos">
+            <p:dialog id="dialogShowTiposEventos" header="#{beanTipoEvento.tituloPantalla}" widgetVar="widgetShowTiposEventos"
+                                  showEffect="explode" hideEffect="fade" closable="false"
+                                  resizable="false" modal="true" responsive="true">
+                <h:panelGroup id="hpanelShowTiposEventos" layout="block" styleClass="ui-fluid">
+                    <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder"
+			         columnClasses="ui-grid-col-6, ui-grid-col-6">
+                       
+                        <h:outputLabel value="Evento : "/>
+                        <h:outputText value="#{beanTipoEvento.tipEvento.descrptipevento}"/>
+                        
+                        <p:outputLabel/>
+                        <p:commandButton id="btnOkShow" value="Aceptar"
+                            update=" :formTableTiposEventos:tablaTiposEventos"
+                            onclick="PF('widgetShowTiposEventos').hide();"/>
+                        
+                    </p:panelGrid>
+                </h:panelGroup>
+                       
+            </p:dialog>
+        </h:form>
+        
+        <p:confirmDialog id="confirmarDelete" showEffect="drop" hideEffect="clip" 
+                message="¿Esta seguro que desea eliminar?"
+                header="Borrar Registro" severity="alert" widgetVar="confirmDeleteTiposEventos">
+                    <h:form id="formConfirmDelete">
+                    <center>
+                    <p:commandButton id="btnBorrarSI" value="SI" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+                                     actionListener="#{beanTipoEvento.delete}" 
+                                    update=":formTableTiposEventos:tablaTiposEventos :formTableTiposEventos:messages"
+                                    oncomplete="if (!args.validationFailed) PF('confirmDeleteTiposEventos').hide();"/>
+                    <h:inputHidden id="idTiposEventosDelete" value="#{beanTipoEvento.tipEvento.idtipevento}"/>
+                    <h:inputHidden id="contadorTiposEventosDelete" value="#{beanTipoEvento.tipEvento.cont}"/>
+                    <p:commandButton id="btnBorrarNO" value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+                                    onclick="PF('confirmDeleteTiposEventos').hide();"/>
+                    </center>
+                    </h:form>
+        </p:confirmDialog> -->
+        <script type="text/javascript">
+                    function setIdActualizar(cont) {
+                      
+                        document.getElementById("formAAShowRipsAf:contadorRipsAfActualizar").value = cont;
+                     }
+                     
+                     function setIdDelete(id, cont) {
+                        document.getElementById("formConfirmDelete:idTiposEventosDelete").value = id;
+                        document.getElementById("formConfirmDelete:contadorTiposEventosDelete").value = cont;
+                    }
+                    
+                    
+                    function validateData(args) {
+                        if(args.validationFailed) {
+                            alert("Verifique Dato Requerido");
+                        } else if(args.statusTransaction == false) {
+                            alert(args.errorTransaction);
+                        } else {
+                            PF('widgetTiposEventos').hide();
+                        }
+                    }
+                    
+                    
+                </script>
+    </ui:define>
+</ui:composition>

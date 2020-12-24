@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+<application>
+    <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+</application>
+
+<managed-bean>
+    <managed-bean-name>modelImagenes</managed-bean-name>
+    <managed-bean-class>com.sistema.rips.pyp.dominio.Imagenes</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+    <managed-bean-name>beanWelcome</managed-bean-name>
+    <managed-bean-class>com.sistema.rips.pyp.bean.BeanWelcome</managed-bean-class>
+
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+        <property-name>imagen</property-name>
+        <value>#{modelImagenes}</value>
+    </managed-property>
+    <managed-property>
+        <property-name>service</property-name>
+        <value>#{serviceImagenes}</value>
+    </managed-property>
+</managed-bean>
+
+<managed-bean>
+    <managed-bean-name>modelRipsAf</managed-bean-name>
+    <managed-bean-class>com.sistema.rips.pyp.dominio.DominioRipsAf</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+</managed-bean>
+<managed-bean>
+    <managed-bean-name>modelRutaSel</managed-bean-name>
+    <managed-bean-class>com.sistema.rips.pyp.dominio.DominioRuta</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+    <managed-bean-name>beanRipsAf</managed-bean-name>
+    <managed-bean-class>com.sistema.rips.pyp.bean.BeanRipsAf</managed-bean-class>
+
+
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+        <property-name>ripsAf</property-name>
+        <value>#{modelRipsAf}</value>
+    </managed-property>
+    <managed-property>
+        <property-name>rutaSel</property-name>
+        <value>#{modelRutaSel}</value>
+    </managed-property>
+    <managed-property>
+        <property-name>service</property-name>
+        <value>#{serviceRipsAf}</value>
+    </managed-property>
+
+     <managed-property>
+        <property-name>serviceRuta</property-name>
+        <value>#{serviceRuta}</value>
+    </managed-property>
+      <managed-property>
+        <property-name>serviceAc</property-name>
+        <value>#{serviceRipsAc}</value>
+    </managed-property>
+    <managed-property>
+        <property-name>serviceUs</property-name>
+        <value>#{serviceRipsUs}</value>
+    </managed-property>
+</managed-bean>
+
+<managed-bean>
+    <managed-bean-name>modelRipsAc</managed-bean-name>
+    <managed-bean-class>com.sistema.rips.pyp.dominio.DominioRipsAc</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+    <managed-bean-name>beanRipsAc</managed-bean-name>
+    <managed-bean-class>com.sistema.rips.pyp.bean.BeanRipsAc</managed-bean-class>
+
+
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+        <property-name>ripsAc</property-name>
+        <value>#{modelRipsAc}</value>
+    </managed-property>
+    <managed-property>
+        <property-name>service</property-name>
+        <value>#{serviceRipsAc}</value>
+    </managed-property>
+
+</managed-bean>
+ 
+    <managed-bean>
+    <managed-bean-name>modelRipsUs</managed-bean-name>
+    <managed-bean-class>com.sistema.rips.pyp.dominio.DominioRipsUs</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+    <managed-bean-name>beanPyp</managed-bean-name>
+    <managed-bean-class>com.sistema.rips.pyp.bean.BeanPyp</managed-bean-class>
+
+
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+        <property-name>ripsUs</property-name>
+        <value>#{modelRipsUs}</value>
+    </managed-property>
+    <managed-property>
+        <property-name>service</property-name>
+        <value>#{servicePyp}</value>
+    </managed-property>
+
+</managed-bean>
+          
+</faces-config>
